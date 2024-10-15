@@ -10,10 +10,10 @@ export default function Contact() {
           <p className="mb-4">We're here to help you find the perfect student accommodation. Feel free to reach out to us with any questions or concerns.</p>
           <ul className="space-y-2">
             <li>
-              <strong>Address:</strong> 123 University Ave, College Town, ST 12345
+              <strong>Address:</strong>Abes Institute of technology ,gzb
             </li>
             <li>
-              <strong>Phone:</strong> (123) 456-7890
+              <strong>Phone:</strong> +91 9811250953
             </li>
             <li>
               <strong>Email:</strong> info@campuscrib.com
