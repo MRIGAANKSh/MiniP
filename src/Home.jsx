@@ -23,21 +23,21 @@ export default function Home() {
       {/* Listings Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-16">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-          <img src="https://via.placeholder.com/300x200?text=PG+Accommodationhttps://www.freepik.com/free-vector/flat-characters-contactless-payment_1307840.htm#page=8&query=paying%20guest&position=1&from_view=keyword&track=ais_hybrid&uuid=91c1ed49-4d1a-4fcf-81a5-a50edb036355" alt="PG Accommodation" className="w-full h-48 object-cover" />
+          <img src="https://png.pngtree.com/thumb_back/fh260/background/20220428/pngtree-hostel-cartoon-flat-illustration-room-image_1110131.jpg"  />
           <div className="p-6">
             <h2 className="text-2xl font-semibold mb-4 text-gray-900">PG Accommodations</h2>
             <p className="text-gray-600">Comfortable and affordable PG options for students.</p>
           </div>
         </div>
         <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-          <img src="https://via.placeholder.com/300x200?text=Mess+Facility" alt="Mess Facility" className="w-full h-48 object-cover" />
+          <img src="https://t3.ftcdn.net/jpg/06/63/53/62/360_F_663536268_zxtniBUfI2CH8KvXYl7gYfwXXECB8BZK.jpg" alt="Mess Facility" className="w-full h-48 object-cover" />
           <div className="p-6">
             <h2 className="text-2xl font-semibold mb-4 text-gray-900">Mess Facilities</h2>
             <p className="text-gray-600">Delicious and nutritious meals for busy students.</p>
           </div>
         </div>
         <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-          <img src="https://via.placeholder.com/300x200?text=Study+Area" alt="Study Area" className="w-full h-48 object-cover" />
+          <img src="https://c8.alamy.com/comp/2JR8JK8/messy-bedroom-with-playing-kids-dirty-furniture-clutter-and-scattered-garbage-children-play-in-untidy-hostel-or-dormitory-room-with-bunk-bed-computer-and-wardrobe-vector-cartoon-illustration-2JR8JK8.jpg" alt="Study Area" className="w-full h-48 object-cover" />
           <div className="p-6">
             <h2 className="text-2xl font-semibold mb-4 text-gray-900">Study Areas</h2>
             <p className="text-gray-600">Quiet and well-equipped spaces for focused studying.</p>
@@ -47,22 +47,45 @@ export default function Home() {
 
       {/* Why Choose Section */}
       <section className="text-center mb-16">
-        <h2 className="text-4xl font-bold mb-6 text-gray-900">Why Choose Campus Crib?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
-            <h3 className="text-xl font-semibold mb-2 text-gray-900">Affordable</h3>
-            <p className="text-gray-600">Budget-friendly options for every student</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
-            <h3 className="text-xl font-semibold mb-2 text-gray-900">Convenient</h3>
-            <p className="text-gray-600">Located near major universities and colleges</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
-            <h3 className="text-xl font-semibold mb-2 text-gray-900">Safe</h3>
-            <p className="text-gray-600">Secure environments with 24/7 support</p>
-          </div>
-        </div>
-      </section>
+  <h2 className="text-4xl font-bold mb-6 text-gray-900">Why Choose Campus Crib?</h2>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+    
+    {/* Affordable Housing */}
+    <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+      <img
+        src="https://static.vecteezy.com/system/resources/thumbnails/022/797/865/small/affordable-rubber-stamp-seal-vector.jpg"
+        alt="Affordable housing"
+        className="w-full h-48 object-cover mb-4"
+      />
+      <h3 className="text-xl font-semibold mb-2 text-gray-900">Affordable</h3>
+      <p className="text-gray-600">Budget-friendly options for every student</p>
+    </div>
+
+    {/* Convenient Location */}
+    <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+      <img
+        src="https://via.placeholder.com/300x200?text=Convenient+Location"
+        alt="Convenient location"
+        className="w-full h-48 object-cover mb-4"
+      />
+      <h3 className="text-xl font-semibold mb-2 text-gray-900">Convenient</h3>
+      <p className="text-gray-600">Located near major universities and colleges</p>
+    </div>
+
+    {/* Safe Environment */}
+    <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+      <img
+        src="https://via.placeholder.com/300x200?text=Safe+Environment"
+        alt="Safe environment"
+        className="w-full h-48 object-cover mb-4"
+      />
+      <h3 className="text-xl font-semibold mb-2 text-gray-900">Safe</h3>
+      <p className="text-gray-600">Secure environments with 24/7 support</p>
+    </div>
+
+  </div>
+</section>
+
 
       {/* Extra space at the bottom to make the page longer */}
       <div className="mb-16"></div>
