@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xl font-semibold mb-4">Campus Crib</h3>
-            <p>Providing comfortable and affordable student accommodations since 2010.</p>
+            <p>Providing comfortable and affordable student accommodations since 2024.</p>
           </div>
           <div>
             <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
@@ -22,9 +22,9 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-blue-400">Facebook</a>
-              <a href="#" className="hover:text-blue-400">Twitter</a>
-              <a href="#" className="hover:text-blue-400">Instagram</a>
+              <a href="#" className="hover:text-blue-400"><i class="fa-brands fa-facebook"></i></a>
+              <a href="#" className="hover:text-blue-400"><i class="fa-brands fa-x-twitter"></i></a>
+              <a href="https://www.instagram.com/theprashant1.4/profilecard/?igsh=MTl5dXNvaGU3eW04aw==" target="_blank" className="hover:text-blue-400"><i class="fa-brands fa-instagram"></i></a>
             </div>
           </div>
         </div>

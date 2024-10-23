@@ -37,7 +37,7 @@ export default function Home() {
           </div>
         </div>
         <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-          <img src="https://c8.alamy.com/comp/2JR8JK8/messy-bedroom-with-playing-kids-dirty-furniture-clutter-and-scattered-garbage-children-play-in-untidy-hostel-or-dormitory-room-with-bunk-bed-computer-and-wardrobe-vector-cartoon-illustration-2JR8JK8.jpg" alt="Study Area" className="w-full h-48 object-cover" />
+          <img src="https://zenlayercdn.centuryply.com/blogimage/15-02-24/blog28-1.jpg" alt="Study Area" className="w-full h-48 object-cover" />
           <div className="p-6">
             <h2 className="text-2xl font-semibold mb-4 text-gray-900">Study Areas</h2>
             <p className="text-gray-600">Quiet and well-equipped spaces for focused studying.</p>
@@ -53,9 +53,9 @@ export default function Home() {
     {/* Affordable Housing */}
     <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
       <img
-        src="https://static.vecteezy.com/system/resources/thumbnails/022/797/865/small/affordable-rubber-stamp-seal-vector.jpg"
+        src="https://thumbs.dreamstime.com/z/affordable-text-written-word-red-round-stamp-sign-affordable-written-word-red-stamp-sign-251938477.jpg?w=768"
         alt="Affordable housing"
-        className="w-full h-48 object-cover mb-4"
+        className="w-full h-45 object-cover mb-4"
       />
       <h3 className="text-xl font-semibold mb-2 text-gray-900">Affordable</h3>
       <p className="text-gray-600">Budget-friendly options for every student</p>
@@ -66,7 +66,7 @@ export default function Home() {
       <img
         src="https://cdn-icons-png.flaticon.com/512/5706/5706483.png"
         alt="Convenient location"
-        className="w-full h-48 object-cover mb-4"
+        className="w-full   h-45 object-cover mb-4"
       />
       <h3 className="text-xl font-semibold mb-2 text-gray-900">Convenient</h3>
       <p className="text-gray-600">Located near major universities and colleges</p>
@@ -74,10 +74,10 @@ export default function Home() {
 
     {/* Safe Environment */}
     <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
-      <img
-        src="https://via.placeholder.com/300x200?text=Safe+Environment"
+      <img 
+        src="https://img.freepik.com/free-vector/24-hour-service-everyday-concept-background_1017-38129.jpg"
         alt="Safe environment"
-        className="w-full h-48 object-cover mb-4"
+        className="w-full  h-45 object-cover mb-4"
       />
       <h3 className="text-xl font-semibold mb-2 text-gray-900">Safe</h3>
       <p className="text-gray-600">Secure environments with 24/7 support</p>

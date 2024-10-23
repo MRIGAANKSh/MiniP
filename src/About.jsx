@@ -12,7 +12,7 @@ export default function About() {
             Campus Crib is a leading student accommodation provider, dedicated to offering comfortable and affordable living spaces for students. Our mission is to create a home away from home, providing all the amenities students need to focus on their studies and enjoy their college experience.
           </p>
           <p className="text-lg leading-relaxed text-gray-600">
-            Founded in 2023, we have grown to become one of the most trusted names in student housing, with properties located near major universities nationwide.
+            Founded in 2024, we have grown to become one of the most trusted names in student housing, with properties located near major universities nationwide.
           </p>
         </div>
         <img
