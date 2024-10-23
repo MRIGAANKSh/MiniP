@@ -64,7 +64,7 @@ export default function Home() {
     {/* Convenient Location */}
     <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
       <img
-        src="https://via.placeholder.com/300x200?text=Convenient+Location"
+        src="https://cdn-icons-png.flaticon.com/512/5706/5706483.png"
         alt="Convenient location"
         className="w-full h-48 object-cover mb-4"
       />
