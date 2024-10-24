@@ -16,7 +16,7 @@ export default function About() {
           </p>
         </div>
         <img
-          src="/images/campus-crib-building.jpg"
+          src="https://www.campuscribs.co.uk/wp-content/uploads/2019/01/new-logo.png"
           alt="Campus Crib Building"
           className="w-full h-auto rounded-lg shadow-lg"
         />
@@ -36,23 +36,29 @@ export default function About() {
 
       {/* Team Section */}
       <div>
-        <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">Our Team</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          {['Frontend', 'Ui-Ux', 'Backend ', 'Data-Research'].map((role, index) => (
-            <div key={index} className="text-center">
-              <div className="relative w-40 h-40 rounded-full overflow-hidden shadow-lg mx-auto mb-4">
-                <img
-                  src={`/images/team-${role.toLowerCase().replace(' ', '-')}.jpg`}
-                  alt={role}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800">{role}</h3>
-              <p className="text-gray-500 text-sm">Some quick info about the {role} role here.</p>
-            </div>
-          ))}
+  <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">Our Team</h2>
+  <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+    {[
+      { role: 'Frontend', image: 'https://media.licdn.com/dms/image/v2/D4E03AQE-zJyLS9CqOA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1729766161187?e=2147483647&v=beta&t=L2Lh5PuZirHKYaeQiUWn031s_KT_afbmSWhdxZbwkFg', description: 'Some info about Frontend.' },
+      { role: 'UI/UX', image: 'https://media.licdn.com/dms/image/v2/D5603AQHA3Nuox-DR1g/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1719035999600?e=2147483647&v=beta&t=g0fLSRuC18Ar0tkfENr3uQu0y41yyrJV5kO5x6JI3CI', description: 'Some info about UI/UX.' },
+      { role: 'Backend', image: 'https://media.licdn.com/dms/image/v2/D5603AQFkp6FP80dAoQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1728202899334?e=2147483647&v=beta&t=xDQg96UJkiWkjtgHu7RQL7YcLVk8shBloGq3XynHFLQ', description: 'Some info about Backend.' },
+      { role: 'Front/Backend', image: 'https://media.licdn.com/dms/image/v2/D5603AQEBHU3WIsUNAw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1724861271482?e=2147483647&v=beta&t=lyRpQ16N0p4Y2H1zetqkh9ZTvA0gaXXsoT44LL01p0k', description: 'Some info about Data Research.' }
+    ].map((member, index) => (
+      <div key={index} className="text-center">
+        <div className="relative w-40 h-40 rounded-full overflow-hidden shadow-lg mx-auto mb-4">
+          <img
+            src={member.image}
+            alt={member.role}
+            className="w-full h-full object-cover"
+          />
         </div>
+        <h3 className="text-xl font-semibold text-gray-800">{member.role}</h3>
+        <p className="text-gray-500 text-sm">{member.description}</p>
       </div>
+    ))}
+  </div>
+</div>
+
     </div>
   );
 }
