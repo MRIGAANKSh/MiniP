@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 
 const listings = [
-  { id: 1, name: 'Sunshine PG', type: 'PG', price: 500, image: '/placeholder.svg?height=200&width=300&text=Sunshine PG' },
-  { id: 2, name: 'Green Meadows Hostel', type: 'Hostel', price: 450, image: '/placeholder.svg?height=200&width=300&text=Green Meadows' },
-  { id: 3, name: 'City Center Apartments', type: 'Apartment', price: 700, image: '/placeholder.svg?height=200&width=300&text=City Center' },
-  { id: 4, name: 'Lakeside Dorms', type: 'Dorm', price: 400, image: '/placeholder.svg?height=200&width=300&text=Lakeside Dorms' },
-  { id: 5, name: 'University Heights PG', type: 'PG', price: 550, image: '/placeholder.svg?height=200&width=300&text=University Heights' },
-  { id: 6, name: 'Tech Park Residences', type: 'Apartment', price: 750, image: '/placeholder.svg?height=200&width=300&text=Tech Park' },
+  { id: 1, name: 'Krishna PG', type: 'PG', price: 3000, image: 'https://content.jdmagicbox.com/v2/comp/delhi/n5/011pxx11.xx11.240629154541.u8n5/catalogue/krishna-pg-chhaprola-ghaziabad-paying-guest-accommodations-sya7v71193.jpg?imwidth=128' },
+  { id: 2, name: 'Shree Radha Krishna Palace', type: 'Hostel', price: 3599, image: 'https://content.jdmagicbox.com/v2/comp/delhi/v6/011pxx11.xx11.210804084718.z6v6/catalogue/shree-radha-krishna-palace-noida-extension-noida-guest-house-4br920pmiy.jpg?imwidth=128' },
+  { id: 3, name: 'Milestone', type: 'Apartment', price: 7500, image: 'https://content.jdmagicbox.com/comp/ghaziabad/e8/011pxx11.xx11.200709173908.p6e8/catalogue/milestone-indirapuram-ghaziabad-estate-agents-for-residential-rental-sf2gmeppdb.jpg?imwidth=128' },
+  { id: 4, name: 'Star PG', type: 'PG', price: 6500, image: 'https://content.jdmagicbox.com/v2/comp/delhi/p9/011pxx11.xx11.190518132554.j4p9/catalogue/star-pg-indirapuram-ghaziabad-ac-paying-guest-accommodations-for-men-hbs4ql4t44.jpg?imwidth=128' },
+  { id: 5, name: 'Bharat Girls PG', type: 'PG', price: 3500, image: 'https://content.jdmagicbox.com/v2/comp/delhi/d7/011pxx11.xx11.180719111045.c4d7/catalogue/bharat-girls-pg-noida-noida-paying-guest-accommodations-uvgy1mmvi9.jpg?imwidth=128' },
+  { id: 6, name: 'Kalpana Cottage', type: 'HOSTEL', price: 5000, image: 'https://content.jdmagicbox.com/v2/comp/delhi/j4/011pxx11.xx11.221217224957.i7j4/catalogue/ezstays-kalpana-cottage-b2-delhi-hostels-sqv0ebyuk6.jpg?imwidth=128' },
+  { id: 6, name: 'Shivam Hostel and PG', type: 'HOSTEL', price: 4600, image: 'https://content.jdmagicbox.com/comp/ghaziabad/w2/011pxx11.xx11.180524162604.c4w2/catalogue/shivam-hostel-and-pg-govindpuram-ghaziabad-hostels-0p8s82ip5o.jpg?imwidth=128' },
+  { id: 6, name: 'Krishna Girls PG', type: 'Apartment', price: 4800, image: 'https://content.jdmagicbox.com/comp/ghaziabad/p4/011pxx11.xx11.190927215419.l1p4/catalogue/krishna-girls-pg-ghaziabad-1yculrcenw.jpg?imwidth=128' },
+  { id: 6, name: 'Nehru Nagar Ghaziabad', type: 'Apartment', price: 7000, image: 'https://is1-2.housingcdn.com/01c16c28/1fcd3ad16021d23e1c53c118fe01c10a/v0/fs/3_bhk_apartment-for-rent-pandav_nagar_ghaziabad-Ghaziabad-hall.jpg' },
+  { id: 6, name: 'PG', type: 'Apartment', price: 8500, image: '/https://is1-2.housingcdn.com/01c16c28/1fcd3ad16021d23e1c53c118fe01c10a/v0/fs/3_bhk_apartment-for-rent-pandav_nagar_ghaziabad-Ghaziabad-hall.jpg' },
+  
 ]
 
 export default function Listings() {
