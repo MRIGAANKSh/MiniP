@@ -6,6 +6,7 @@ import About from './About'
 import Listings from './Listings'
 import Contact from './Contact'
 import Footer from './Footer'
+import ListingDetails from './Details'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/listings" element={<Listings />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/details/:listingId" element={<ListingDetails />} />
           </Routes>
         </main>
         <Footer />
