@@ -8,6 +8,13 @@ const Details = () => {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true); // To manage loading state
   const [error, setError] = useState(null); // To manage error state
+  const [coordinates, setCoordinates] = useState(null); // To store the coordinates for the map
+
+  // Default location for Ghaziabad, Uttar Pradesh if coordinates are not available
+  const defaultLocation = {
+    lat: 28.6692, // Default latitude for Ghaziabad
+    lon: 77.4538, // Default longitude for Ghaziabad
+  };
 
   // Fetch the listing details based on the listingId from the URL
   useEffect(() => {
@@ -19,6 +26,14 @@ const Details = () => {
         }
         const data = await response.json();
         setListing(data);
+
+        // Check if the coordinates exist in the API response
+        const locationCoordinates = {
+          lat: data.latitude || defaultLocation.lat,
+          lon: data.longitude || defaultLocation.lon,
+        };
+
+        setCoordinates(locationCoordinates); // Update state with coordinates
       } catch (err) {
         setError(err.message);
       } finally {
@@ -38,10 +53,17 @@ const Details = () => {
     return <div className="text-center text-xl text-red-500">{error}</div>;
   }
 
+  const location = listing.address || "No address provided";
+
   // Function to navigate back to the listings page
   const closeModal = () => {
     navigate('/listings');
   };
+
+  // OpenStreetMap iframe URL (dynamically generated based on coordinates)
+  const mapUrl = coordinates
+    ? `https://www.openstreetmap.org/export/embed.html?marker=${coordinates.lat},${coordinates.lon}&zoom=15`
+    : `https://www.openstreetmap.org/export/embed.html?marker=${defaultLocation.lat},${defaultLocation.lon}&zoom=15`;
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg space-y-8">
@@ -69,7 +91,7 @@ const Details = () => {
         <p className="text-xl font-semibold text-gray-800 mb-4">{`₹ ${listing.price} / month`}</p>
 
         {/* Address Section */}
-        <p className="text-gray-600 mb-4">{listing.address}</p>
+        <p className="text-gray-600 mb-4">{location}</p> {/* Display the location */}
 
         {/* Description Section */}
         <p className="text-gray-600 mb-4">{listing.description || 'No description available'}</p>
@@ -89,6 +111,22 @@ const Details = () => {
           <p>Email: {listing.email}</p>
         </div>
       </div>
+
+      {/* Map Section (Boxed) */}
+      {coordinates && (
+        <div className="my-6 bg-gray-100 p-4 rounded-lg shadow-md">
+          <div className="text-center mb-4 font-semibold text-xl">Location on Map</div>
+          <iframe
+            width="100%"  // 100% width to make it responsive
+            height="400"  // Set a fixed height for the map
+            src={mapUrl}
+            style={{ border: '1px solid black' }}
+            allowFullScreen=""
+            loading="lazy"
+            title="Location Map"
+          ></iframe>
+        </div>
+      )}
 
       {/* Close Button */}
       <div className="text-center">
