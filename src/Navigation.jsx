@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 export default function Navigation() {
   return (
-    <nav className="bg-gray-800 text-gray-300 p-4 shadow-md">
+    <nav className="bg-gray-800 text-gray-300 p-4 shadow-md sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold transition-transform transform hover:scale-105">
-          Campus Crib
+          <i className="fa-solid fa-house"></i> Campus Crib
         </Link>
         <ul className="flex space-x-6">
           <li>
