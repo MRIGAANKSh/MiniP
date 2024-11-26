@@ -7,6 +7,7 @@ import Listings from './Listings'
 import Contact from './Contact'
 import Footer from './Footer'
 import ListingDetails from './Details'
+import Results from './result'
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="/listings" element={<Listings />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/details/:listingId" element={<ListingDetails />} />
+            <Route path="/result" element={<Results />} />
           </Routes>
         </main>
         <Footer />

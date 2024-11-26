@@ -20,8 +20,19 @@ app.use(express.json());
 
 // API endpoint to fetch all listings from the database
 app.get('/api/listings', async (req, res) => {
+  const searchTerm = req.query.search;
+
   try {
-    const result = await pool.query('SELECT * FROM listings');
+    let query = 'SELECT * FROM listings';
+    let queryParams = [];
+
+    // If a search term is provided, filter by nearby_college
+    if (searchTerm) {
+      query += ' WHERE LOWER(nearby_college) = LOWER($1)';
+      queryParams = [searchTerm];
+    }
+
+    const result = await pool.query(query, queryParams);
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching listings:', err);

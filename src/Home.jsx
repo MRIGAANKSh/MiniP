@@ -1,7 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // useNavigate is used to redirect
 
 export default function Home() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  // Function to handle search and redirect to the results page
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      navigate(`/result?search=${searchTerm}`);  // Redirecting to results page with search term in query string
+    }
+  };
+
   return (
     <div className="container mx-auto px-6 py-10 bg-cover bg-center" style={{ backgroundImage: 'url("https://example.com/your-background-image.jpg")' }}>
       {/* Welcome Section with Search Bar */}
@@ -13,8 +23,13 @@ export default function Home() {
             type="text" 
             placeholder="Search for listings near your college..." 
             className="w-full h-12 px-4 border border-gray-300 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-300"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button className="absolute inset-y-0 right-0 px-4 py-2 bg-teal-600 text-white rounded-full hover:bg-teal-700 transition duration-300 shadow-lg">
+          <button 
+            onClick={handleSearch}
+            className="absolute inset-y-0 right-0 px-4 py-2 bg-teal-600 text-white rounded-full hover:bg-teal-700 transition duration-300 shadow-lg"
+          >
             Search
           </button>
         </div>
@@ -23,7 +38,7 @@ export default function Home() {
       {/* Listings Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-16">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-          <img src="https://png.pngtree.com/thumb_back/fh260/background/20220428/pngtree-hostel-cartoon-flat-illustration-room-image_1110131.jpg"  />
+          <img src="https://png.pngtree.com/thumb_back/fh260/background/20220428/pngtree-hostel-cartoon-flat-illustration-room-image_1110131.jpg" alt="PG Accommodations" />
           <div className="p-6">
             <h2 className="text-2xl font-semibold mb-4 text-gray-900">PG Accommodations</h2>
             <p className="text-gray-600">Comfortable and affordable PG options for students.</p>
@@ -47,47 +62,40 @@ export default function Home() {
 
       {/* Why Choose Section */}
       <section className="text-center mb-16">
-  <h2 className="text-4xl font-bold mb-6 text-gray-900">Why Choose Campus Crib?</h2>
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-    
-    {/* Affordable Housing */}
-    <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
-      <img
-        src="https://thumbs.dreamstime.com/z/affordable-text-written-word-red-round-stamp-sign-affordable-written-word-red-stamp-sign-251938477.jpg?w=768"
-        alt="Affordable housing"
-        className="w-full h-45 object-cover mb-4"
-      />
-      <h3 className="text-xl font-semibold mb-2 text-gray-900">Affordable</h3>
-      <p className="text-gray-600">Budget-friendly options for every student</p>
-    </div>
+        <h2 className="text-4xl font-bold mb-6 text-gray-900">Why Choose Campus Crib?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+            <img
+              src="https://thumbs.dreamstime.com/z/affordable-text-written-word-red-round-stamp-sign-affordable-written-word-red-stamp-sign-251938477.jpg?w=768"
+              alt="Affordable housing"
+              className="w-full h-45 object-cover mb-4"
+            />
+            <h3 className="text-xl font-semibold mb-2 text-gray-900">Affordable</h3>
+            <p className="text-gray-600">Budget-friendly options for every student</p>
+          </div>
 
-    {/* Convenient Location */}
-    <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/5706/5706483.png"
-        alt="Convenient location"
-        className="w-full   h-45 object-cover mb-4"
-      />
-      <h3 className="text-xl font-semibold mb-2 text-gray-900">Convenient</h3>
-      <p className="text-gray-600">Located near major universities and colleges</p>
-    </div>
+          <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/5706/5706483.png"
+              alt="Convenient location"
+              className="w-full h-45 object-cover mb-4"
+            />
+            <h3 className="text-xl font-semibold mb-2 text-gray-900">Convenient</h3>
+            <p className="text-gray-600">Located near major universities and colleges</p>
+          </div>
 
-    {/* Safe Environment */}
-    <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
-      <img 
-        src="https://img.freepik.com/free-vector/24-hour-service-everyday-concept-background_1017-38129.jpg"
-        alt="Safe environment"
-        className="w-full  h-45 object-cover mb-4"
-      />
-      <h3 className="text-xl font-semibold mb-2 text-gray-900">Safe</h3>
-      <p className="text-gray-600">Secure environments with 24/7 support</p>
-    </div>
-
-  </div>
-</section>
-
-
-      {/* Extra space at the bottom to make the page longer */}
+          <div className="bg-white rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105">
+            <img 
+              src="https://img.freepik.com/free-vector/24-hour-service-everyday-concept-background_1017-38129.jpg"
+              alt="Safe environment"
+              className="w-full h-45 object-cover mb-4"
+            />
+            <h3 className="text-xl font-semibold mb-2 text-gray-900">Safe</h3>
+            <p className="text-gray-600">Secure environments with 24/7 support</p>
+          </div>
+        </div>
+      </section>
+      
       <div className="mb-16"></div>
     </div>
   );

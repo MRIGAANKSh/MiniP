@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 const Details = () => {
-  const { listingId } = useParams(); // Get the listing ID from the URL
-  const navigate = useNavigate(); // To navigate back to the listings page
+  const { listingId } = useParams();
+  const navigate = useNavigate();
 
   const [listing, setListing] = useState(null);
-  const [loading, setLoading] = useState(true); // To manage loading state
-  const [error, setError] = useState(null); // To manage error state
-  const [coordinates, setCoordinates] = useState(null); // To store the coordinates for the map
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [coordinates, setCoordinates] = useState(null);
 
-  // Default location for Ghaziabad, Uttar Pradesh if coordinates are not available
+  // Default fallback location if latitude/longitude is not available
   const defaultLocation = {
-    lat: 28.6692, // Default latitude for Ghaziabad
-    lon: 77.4538, // Default longitude for Ghaziabad
+    lat: 28.6692,
+    lon: 77.4538,
   };
 
-  // Fetch the listing details based on the listingId from the URL
   useEffect(() => {
     const fetchListingDetails = async () => {
       try {
@@ -27,13 +29,17 @@ const Details = () => {
         const data = await response.json();
         setListing(data);
 
-        // Check if the coordinates exist in the API response
-        const locationCoordinates = {
-          lat: data.latitude || defaultLocation.lat,
-          lon: data.longitude || defaultLocation.lon,
-        };
+        // Debug log to see the structure of the response
+        console.log('Fetched listing data:', data);
 
-        setCoordinates(locationCoordinates); // Update state with coordinates
+        const locationCoordinates = data.location
+          ? {
+              lat: data.location.lat || data.location.latitude,  // Handle both latitude keys
+              lon: data.location.lng || data.location.longitude, // Handle both longitude keys
+            }
+          : defaultLocation;
+
+        setCoordinates(locationCoordinates);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -44,7 +50,6 @@ const Details = () => {
     fetchListingDetails();
   }, [listingId]);
 
-  // If the listing is still loading or doesn't exist
   if (loading) {
     return <div className="text-center text-xl">Loading...</div>;
   }
@@ -55,15 +60,13 @@ const Details = () => {
 
   const location = listing.address || "No address provided";
 
-  // Function to navigate back to the listings page
   const closeModal = () => {
     navigate('/listings');
   };
 
-  // OpenStreetMap iframe URL (dynamically generated based on coordinates)
-  const mapUrl = coordinates
-    ? `https://www.openstreetmap.org/export/embed.html?marker=${coordinates.lat},${coordinates.lon}&zoom=15`
-    : `https://www.openstreetmap.org/export/embed.html?marker=${defaultLocation.lat},${defaultLocation.lon}&zoom=15`;
+  // Coordinates to center the map
+  const centerLat = coordinates?.lat || defaultLocation.lat;
+  const centerLon = coordinates?.lon || defaultLocation.lon;
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg space-y-8">
@@ -75,7 +78,6 @@ const Details = () => {
       </button>
 
       <div className="text-center">
-        {/* Image Section */}
         <div className="mb-6">
           <img
             src={listing.image}
@@ -84,19 +86,11 @@ const Details = () => {
           />
         </div>
 
-        {/* Listing Name */}
         <h2 className="text-3xl font-bold mb-4">{listing.name}</h2>
-
-        {/* Price Section */}
         <p className="text-xl font-semibold text-gray-800 mb-4">{`₹ ${listing.price} / month`}</p>
-
-        {/* Address Section */}
-        <p className="text-gray-600 mb-4">{location}</p> {/* Display the location */}
-
-        {/* Description Section */}
+        <p className="text-gray-600 mb-4">{location}</p>
         <p className="text-gray-600 mb-4">{listing.description || 'No description available'}</p>
 
-        {/* Amenities Section */}
         <div className="text-left text-gray-600">
           <h3 className="font-semibold text-lg">Amenities</h3>
           <ul className="list-disc pl-5">
@@ -104,31 +98,32 @@ const Details = () => {
               <li key={index}>{amenity}</li>
             ))}
           </ul>
-
-          {/* Contact Info */}
           <h3 className="font-semibold mt-4 text-lg">Contact</h3>
           <p>Phone: {listing.phone}</p>
           <p>Email: {listing.email}</p>
         </div>
       </div>
 
-      {/* Map Section (Boxed) */}
-      {coordinates && (
-        <div className="my-6 bg-gray-100 p-4 rounded-lg shadow-md">
-          <div className="text-center mb-4 font-semibold text-xl">Location on Map</div>
-          <iframe
-            width="100%"  // 100% width to make it responsive
-            height="400"  // Set a fixed height for the map
-            src={mapUrl}
-            style={{ border: '1px solid black' }}
-            allowFullScreen=""
-            loading="lazy"
-            title="Location Map"
-          ></iframe>
-        </div>
-      )}
+      <div className="my-6 bg-gray-100 p-4 rounded-lg shadow-md">
+        <div className="text-center mb-4 font-semibold text-xl">Location on Map</div>
+        <MapContainer
+          center={[centerLat, centerLon]}
+          zoom={15}
+          style={{ height: '400px', width: '100%' }}
+          className="leaflet-container"
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={[centerLat, centerLon]}>
+            <Popup>
+              {listing.name}<br />
+              {listing.address}
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </div>
 
-      {/* Close Button */}
       <div className="text-center">
         <button
           className="mt-8 py-2 px-6 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
