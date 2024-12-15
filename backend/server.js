@@ -9,7 +9,9 @@ dotenv.config();
 const { Pool } = pkg;
 
 const app = express();
-const port = 3001;
+
+// Use the environment variable PORT if available, otherwise default to 3001
+const port = process.env.PORT || 3001;
 
 // Set up the PostgreSQL pool connection using environment variables
 const pool = new Pool({
@@ -72,5 +74,5 @@ app.use((req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running on port ${port}`);
 });
