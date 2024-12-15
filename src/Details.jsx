@@ -8,8 +8,8 @@ import 'leaflet/dist/leaflet.css';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
+// Set default Leaflet marker icons
 delete L.Icon.Default.prototype._getIconUrl;
-
 L.Icon.Default.mergeOptions({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
@@ -33,7 +33,9 @@ const Details = () => {
   useEffect(() => {
     const fetchListingDetails = async () => {
       try {
-        const response = await fetch(`https://minip-2.onrender.com/api/listings/${listingId}`);
+        const response = await fetch(
+          `https://minip-2.onrender.com/api/listings/${listingId}`
+        );
         if (!response.ok) {
           throw new Error('Listing not found');
         }
@@ -69,7 +71,7 @@ const Details = () => {
     return <div className="text-center text-xl text-red-500">{error}</div>;
   }
 
-  const location = listing.address || "No address provided";
+  const location = listing.address || 'No address provided';
 
   const closeModal = () => {
     navigate('/listings');
@@ -100,7 +102,9 @@ const Details = () => {
         <h2 className="text-3xl font-bold mb-4">{listing.name}</h2>
         <p className="text-xl font-semibold text-gray-800 mb-4">{`₹ ${listing.price} / month`}</p>
         <p className="text-gray-600 mb-4">{location}</p>
-        <p className="text-gray-600 mb-4">{listing.description || 'No description available'}</p>
+        <p className="text-gray-600 mb-4">
+          {listing.description || 'No description available'}
+        </p>
 
         <div className="text-left text-gray-600">
           <h3 className="font-semibold text-lg">Amenities</h3>
@@ -120,7 +124,9 @@ const Details = () => {
       </div>
 
       <div className="my-6 bg-gray-100 p-4 rounded-lg shadow-md">
-        <div className="text-center mb-4 font-semibold text-xl">Location on Map</div>
+        <div className="text-center mb-4 font-semibold text-xl">
+          Location on Map
+        </div>
         <MapContainer
           center={[centerLat, centerLon]}
           zoom={15}
@@ -132,7 +138,8 @@ const Details = () => {
           />
           <Marker position={[centerLat, centerLon]}>
             <Popup>
-              {listing.name}<br />
+              {listing.name}
+              <br />
               {listing.address}
             </Popup>
           </Marker>
