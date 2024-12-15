@@ -1,22 +1,27 @@
 import pkg from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const { Pool } = pkg;
 
+// Configure the PostgreSQL pool
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'campuscrib_db',
-  password: 'Mrigaank&2402',
-  port: 5432,
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT || 5432,
+  ssl: { rejectUnauthorized: false }, // Enable SSL
 });
 
-async function testConnection() {
+(async () => {
   try {
-    const client = await pool.connect();
-    console.log('Connected to PostgreSQL');
-    client.release();
+    const result = await pool.query('SELECT NOW()');
+    console.log('Database connected successfully:', result.rows[0]);
+    process.exit(0);
   } catch (err) {
-    console.error('Connection error', err.stack);
+    console.error('Error connecting to database:', err);
+    process.exit(1);
   }
-}
-
-testConnection();
+})();

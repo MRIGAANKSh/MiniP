@@ -17,7 +17,7 @@ export default function App() {
     // Set a timeout to turn off the loader after 5 seconds
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 2500);
 
     // Cleanup timer in case the component unmounts
     return () => clearTimeout(timer);

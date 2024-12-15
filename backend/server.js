@@ -1,20 +1,29 @@
 import express from 'express';
 import cors from 'cors';
 import pkg from 'pg';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
+
 const { Pool } = pkg;
 
 const app = express();
 const port = 3001;
 
-// Set up the PostgreSQL pool connection
+// Set up the PostgreSQL pool connection using environment variables
 const pool = new Pool({
-  user: 'postgres',       // Your PostgreSQL username
-  host: 'localhost',      // Database host (use localhost or your host's IP)
-  database: 'campuscrib_db', // The database name
-  password: 'Mrigaank&2402', // Your PostgreSQL password
-  port: 5432,             // Default PostgreSQL port
+  user: process.env.PG_USER,       // PostgreSQL username from .env
+  host: process.env.PG_HOST,       // Database host from .env
+  database: process.env.PG_DATABASE, // Database name from .env
+  password: process.env.PG_PASSWORD, // PostgreSQL password from .env
+  port: process.env.PG_PORT || 5432, // Default PostgreSQL port
+  ssl: {
+    rejectUnauthorized: false, // This allows self-signed certificates used by Render
+  },
 });
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
@@ -35,8 +44,8 @@ app.get('/api/listings', async (req, res) => {
     const result = await pool.query(query, queryParams);
     res.json(result.rows);
   } catch (err) {
-    console.error('Error fetching listings:', err);
-    res.status(500).json({ message: 'Error fetching listings' });
+    console.error('Error fetching listings:', err.message);
+    res.status(500).json({ message: 'Error fetching listings', error: err.message });
   }
 });
 
@@ -51,9 +60,14 @@ app.get('/api/listings/:id', async (req, res) => {
       res.status(404).json({ message: 'Listing not found' });
     }
   } catch (err) {
-    console.error('Error fetching listing by id:', err);
-    res.status(500).json({ message: 'Error fetching listing' });
+    console.error('Error fetching listing by id:', err.message);
+    res.status(500).json({ message: 'Error fetching listing', error: err.message });
   }
+});
+
+// Default error handler for unhandled routes
+app.use((req, res) => {
+  res.status(404).json({ message: 'API endpoint not found' });
 });
 
 // Start the server
