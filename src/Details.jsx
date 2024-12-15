@@ -22,7 +22,7 @@ const Details = () => {
   useEffect(() => {
     const fetchListingDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/api/listings/${listingId}`);
+        const response = await fetch(`https://minip-2.onrender.com/api/listings/${listingId}`);
         if (!response.ok) {
           throw new Error('Listing not found');
         }
@@ -34,7 +34,7 @@ const Details = () => {
 
         const locationCoordinates = data.location
           ? {
-              lat: data.location.lat || data.location.latitude,  // Handle both latitude keys
+              lat: data.location.lat || data.location.latitude, // Handle both latitude keys
               lon: data.location.lng || data.location.longitude, // Handle both longitude keys
             }
           : defaultLocation;
@@ -94,9 +94,13 @@ const Details = () => {
         <div className="text-left text-gray-600">
           <h3 className="font-semibold text-lg">Amenities</h3>
           <ul className="list-disc pl-5">
-            {listing.amenities.map((amenity, index) => (
-              <li key={index}>{amenity}</li>
-            ))}
+            {listing.amenities && Array.isArray(listing.amenities) ? (
+              listing.amenities.map((amenity, index) => (
+                <li key={index}>{amenity}</li>
+              ))
+            ) : (
+              <li>No amenities available</li>
+            )}
           </ul>
           <h3 className="font-semibold mt-4 text-lg">Contact</h3>
           <p>Phone: {listing.phone}</p>

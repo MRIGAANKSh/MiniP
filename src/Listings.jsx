@@ -18,7 +18,7 @@ export default function Listings() {
     setIsLoading(true);
     setError(null);  
 
-    fetch('http://localhost:3001/api/listings')
+    fetch('https://minip-2.onrender.com/api/listings')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

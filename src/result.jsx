@@ -13,7 +13,7 @@ export default function Results() {
       try {
         // Make API call with search term
         const response = await fetch(
-          `http://localhost:3001/api/listings?search=${encodeURIComponent(searchTerm)}`
+          `https://minip-2.onrender.com/api/listings?search=${encodeURIComponent(searchTerm)}`
         );
         const data = await response.json();
 
