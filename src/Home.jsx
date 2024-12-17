@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FeatureCard from './FeatureCard';
 import { Search, Star, Zap, Building2, MessageCircle } from 'lucide-react';
+import PopularSearches from './popular';
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -105,6 +106,7 @@ export default function Home() {
           />
         </div>
       </section>
+      <PopularSearches/>
 
       {/* Why Choose Section */}
       <section className="text-center mb-16 bg-gray-50 py-12">
