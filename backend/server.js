@@ -53,7 +53,11 @@ app.get('/api/listings', async (req, res) => {
 
 // API endpoint to fetch a single listing by ID
 app.get('/api/listings/:id', async (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = parseInt(req.params.id, 10); // Ensure the ID is an integer
+  if (isNaN(id)) {
+    return res.status(400).json({ message: 'Invalid listing ID' });
+  }
+
   try {
     const result = await pool.query('SELECT * FROM listings WHERE id = $1', [id]);
     if (result.rows.length > 0) {
@@ -64,6 +68,42 @@ app.get('/api/listings/:id', async (req, res) => {
   } catch (err) {
     console.error('Error fetching listing by id:', err.message);
     res.status(500).json({ message: 'Error fetching listing', error: err.message });
+  }
+});
+
+// API endpoint to handle booking requests
+app.post('/api/bookings', async (req, res) => {
+  const { listingId, numberOfRooms, message, name, phoneNumber } = req.body;
+
+  // Validate required fields
+  if (!listingId || !numberOfRooms || !message || !name || !phoneNumber) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  try {
+    // Check if listing exists before booking
+    const listingResult = await pool.query('SELECT * FROM listings WHERE id = $1', [listingId]);
+    if (listingResult.rows.length === 0) {
+      return res.status(404).json({ message: 'Listing not found' });
+    }
+
+    // Insert the booking details into the database
+    const result = await pool.query(
+      `INSERT INTO bookings (listing_id, number_of_rooms, message, name, phone_number) 
+       VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      [listingId, numberOfRooms, message, name, phoneNumber]
+    );
+
+    const newBooking = result.rows[0];
+
+    // Respond with the newly created booking details
+    res.status(201).json({
+      message: 'Booking confirmed',
+      booking: newBooking,
+    });
+  } catch (err) {
+    console.error('Error creating booking:', err.message);
+    res.status(500).json({ message: 'Error creating booking', error: err.message });
   }
 });
 

@@ -9,12 +9,13 @@ import Footer from './Footer';
 import ListingDetails from './Details';
 import Results from './result';
 import { HashLoader, ScaleLoader } from 'react-spinners';
+import Booking from './booking';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set a timeout to turn off the loader after 5 seconds
+    // Set a timeout to turn off the loader after 2.5 seconds
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2500);
@@ -42,6 +43,7 @@ export default function App() {
                 <Route path="/listings" element={<Listings />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/details/:listingId" element={<ListingDetails />} />
+                <Route path="/booking/:listingId" element={<Booking />} />
                 <Route path="/result" element={<Results />} />
               </Routes>
             </main>

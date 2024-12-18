@@ -123,6 +123,16 @@ const Details = () => {
         </div>
       </div>
 
+      {/* Book Now button before the location on map */}
+      <div className="text-center">
+        <button
+          className="mt-8 py-3 px-6 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500"
+          onClick={() => navigate(`/booking/${listingId}`)}
+        >
+          Book Now
+        </button>
+      </div>
+
       <div className="my-6 bg-gray-100 p-4 rounded-lg shadow-md">
         <div className="text-center mb-4 font-semibold text-xl">
           Location on Map
@@ -136,7 +146,11 @@ const Details = () => {
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[centerLat, centerLon]}>
+          <Marker position={[centerLat, centerLon]} eventHandlers={{
+            click: () => {
+              navigate(`/booking/${listingId}`); // Navigate to the booking page on marker click
+            }
+          }}>
             <Popup>
               {listing.name}
               <br />
