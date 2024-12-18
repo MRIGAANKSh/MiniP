@@ -3,22 +3,22 @@ const PopularSearches = () => {
       {
         title: "PG near",
         location: "ABES",
-        image: "https://via.placeholder.com/300x200?text=PG+near+ABES",
+        image: "https://alexandro.in/image/gurgoan/settl-vienna/3.jpg",
       },
       {
         title: "Flat for rent near",
         location: "KIET",
-        image: "https://via.placeholder.com/300x200?text=Flat+for+Rent+near+KIET",
+        image: "https://alexandro.in/image/gurgoan/settl-oslo/3.jpg",
       },
       {
         title: "Flat for rent in",
         location: "AKGEC",
-        image: "https://via.placeholder.com/300x200?text=Flat+for+Rent+in+AKGEC",
+        image: "https://alexandro.in/image/gurgoan/settl-deia/3.jpg",
       },
       {
-        title: "Independent Room for Rent in",
+        title: "Room for Rent near",
         location: "IMS",
-        image: "https://via.placeholder.com/300x200?text=Independent+Room+for+Rent+in+IMS",
+        image: "https://alexandro.in/image/gurgoan/settl-verona/3.jpg",
       },
     ];
   

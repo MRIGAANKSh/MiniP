@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom';
 export default function Footer() {
   return (
     <div>
-      <div className="container mx-auto px-4 mb-8">
-        <img
-          src="https://img.freepik.com/premium-photo/building-perspective-cityscape-white-background-modern-building-city-skyline_51530-2648.jpg?w=2000"
-          alt=""
-          className="w-full h-32 object-cover opacity-20"
-          role="presentation"
-        />
-      </div>
+      <div className="mx-auto">
+  <img
+    src="https://www.thesac.org.uk/application/files/4014/6549/5690/housing_vector_banner.png"
+    alt=""
+    className="w-screen h-32 object-cover"
+    role="presentation"
+  />
+</div>
+
 
       <footer className="bg-gray-900 text-white py-16">
         <div className="container mx-auto px-6">
