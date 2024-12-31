@@ -10,6 +10,7 @@ import ListingDetails from './Details';
 import Results from './result';
 import { HashLoader, ScaleLoader } from 'react-spinners';
 import Booking from './booking';
+import Cursor from './cursor'
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -26,6 +27,7 @@ export default function App() {
 
   return (
     <div>
+      <Cursor/>
       {loading ? (
         // Show loader while loading is true
         <div className="flex items-center justify-center min-h-screen">
