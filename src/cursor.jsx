@@ -6,34 +6,17 @@ const Cursor = () => {
     x: 0,
     y: 0,
     scaleX: 1,
-    scaleY: 1
+    scaleY: 1,
   });
 
   useEffect(() => {
-    const cursorElement = document.querySelector('#cursor');
-    let timeout;
-    let xPrev = 0, yPrev = 0;
-
     const handleMouseMove = (e) => {
-      // Calculate scale changes
-      const xScale = gsap.utils.clamp(0.8, 1.2, e.clientX - xPrev);
-      const yScale = gsap.utils.clamp(0.8, 1.2, e.clientY - yPrev);
-
-      xPrev = e.clientX;
-      yPrev = e.clientY;
-
       // Update cursor position and scale
-      setCursorStyle({
+      setCursorStyle((prev) => ({
+        ...prev,
         x: e.clientX,
         y: e.clientY,
-        scaleX: xScale,
-        scaleY: yScale
-      });
-
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        cursorElement.style.transform = `translate(${e.clientX}px, ${e.clientY}px) scale(1, 1)`;
-      }, 100);
+      }));
     };
 
     // Adding the mousemove listener
@@ -42,7 +25,6 @@ const Cursor = () => {
     // Cleanup on component unmount
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      clearTimeout(timeout);
     };
   }, []);
 
@@ -51,8 +33,9 @@ const Cursor = () => {
       id="cursor"
       style={{
         transform: `translate(${cursorStyle.x}px, ${cursorStyle.y}px) scale(${cursorStyle.scaleX}, ${cursorStyle.scaleY})`,
+        position: 'fixed', // Ensure cursor stays in view
       }}
-      className="absolute bg-white rounded-full w-6 h-6 pointer-events-none z-50 transition-transform duration-200 ease-out"
+      className="bg-black rounded-full w-3 h-3 pointer-events-none z-50 transition-transform duration-200 ease-out"
     ></div>
   );
 };

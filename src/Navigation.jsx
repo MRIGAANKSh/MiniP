@@ -1,39 +1,61 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Navigation() {
   return (
-    <nav className="bg-gray-800 text-gray-300 p-4 shadow-md sticky top-0 z-50">
+    <nav className="bg-white-800 text-black-300 p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold transition-transform transform hover:scale-105">
-          <i className="fa-solid fa-house"></i> Campus Crib
+        {/* Logo Section */}
+        <Link
+          to="/"
+          className="flex items-center space-x-2 text-2xl font-bold transition-transform transform hover:scale-105"
+        >
+          <img
+            src="https://www.shutterstock.com/image-vector/man-leaving-work-sign-icon-600w-2539144085.jpg"
+            alt="Campus Crib Logo"
+            className="h-8 w-8 rounded-full"
+          />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-wide">
+            Campus Crib
+          </span>
         </Link>
-        <ul className="flex space-x-6">
+
+        {/* Navigation Links */}
+        <ul className="flex space-x-6 items-center">
           <li>
-            <Link to="/" className="relative group transition-colors duration-300">
-              Home
-              <span className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-300 scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+            <Link
+              to="/listings"
+              className="relative group transition-colors duration-300"
+            >
+              Explore
+              <span className="absolute inset-x-0 bottom-0 h-0.5 bg-black scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
             </Link>
           </li>
           <li>
-            <Link to="/about" className="relative group transition-colors duration-300">
+            <Link
+              to="/contact"
+              className="relative group transition-colors duration-300"
+            >
+              Community
+              <span className="absolute inset-x-0 bottom-0 h-0.5 bg-black scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/about"
+              className="relative group transition-colors duration-300"
+            >
               About
-              <span className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-300 scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
-            </Link>
-          </li>
-          <li>
-            <Link to="/listings" className="relative group transition-colors duration-300">
-              Listings
-              <span className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-300 scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact" className="relative group transition-colors duration-300">
-              Contact
-              <span className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-300 scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+              <span className="absolute inset-x-0 bottom-0 h-0.5 bg-black scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
             </Link>
           </li>
         </ul>
+
+        {/* Button */}
+        <button className="border-2 border-black text-black font-semibold py-1 px-2 rounded-3xl transition-colors duration-300 flex items-center space-x-2">
+          <i className="fa-solid fa-bars"></i>
+          <i className="fa-regular fa-user"></i>
+        </button>
       </div>
     </nav>
   );

@@ -4,6 +4,8 @@ import FeatureCard from "./FeatureCard";
 import { Search, Star, Zap, Building2, MessageCircle } from "lucide-react";
 import PopularSearches from "./popular";
 import Accordian, { AccordianItem } from "./accordian";
+import Stats from './stats'
+
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,28 +25,30 @@ export default function Home() {
       }}
     >
       {/* Welcome Section with Search Bar */}
-      <section className="flex items-center justify-between text-center  px-6 bg-gradient-to-r from-teal-500 via-teal-700 to-teal-800 bg-opacity-60 min-h-screen">
+      <section className="flex items-center justify-between text-center  px-6  bg-opacity-60 min-h-screen">
         {/* Left: Search bar */}
         <div className="max-w-xl w-full text-white">
-          <h1 className="text-5xl font-extrabold leading-tight mb-6">
-            Welcome to Campus Crib
+          <h1 className="text-4xl py-5 text-blue-500 tracking-tight text-primary md:text-5xl lg:text-6xl">
+            Connecting Students to Amazing Accommodations
           </h1>
-          <p className="text-lg mb-8">
-            Find your perfect student accommodation near your university.
+          <p className="text-lg py-2 text-blue-400 text-muted-foreground">
+            Find a cozy home away from home, connect with fellow students, and
+            embark on an unforgettable experience. Start your journey with us
+            today!
           </p>
           <div className="relative inline-block w-full max-w-md mb-6">
             <input
               type="text"
-              placeholder="Search for listings near your college..."
+              placeholder="Search by College"
               className="w-full h-14 px-6 text-black text-lg rounded-full bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-300"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button
               onClick={handleSearch}
-              className="absolute right-0 top-0 h-14 px-6 bg-teal-600 text-white rounded-full hover:bg-teal-700 transition-all duration-300"
+              className="absolute right-0 top-0 h-14 px-6  text-black rounded-full hover:bg-black hover:text-white transition-all duration-300"
             >
-              Search
+             <i class="fa-solid fa-magnifying-glass"></i>
             </button>
           </div>
         </div>
@@ -58,7 +62,7 @@ export default function Home() {
           />
         </div>
       </section>
-
+      <Stats/>
       {/* Listings Section */}
       <section className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -117,30 +121,29 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="container py-12 pl-16 pr-0 grid justify-items-center gap-6">
-  <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-    <FeatureCard
-      icon={Star}
-      title="Trusted by 1m+ students"
-      description="Every year, we help over a million students find their ideal place."
-    />
-    <FeatureCard
-      icon={Zap}
-      title="Quick & easy bookings"
-      description="Secure your room in no time with hassle-free instant booking."
-    />
-    <FeatureCard
-      icon={Building2}
-      title="The widest choice"
-      description="Browse verified, affordable student rooms close to university."
-    />
-    <FeatureCard
-      icon={MessageCircle}
-      title="We're here to help"
-      description="Reach out to our friendly team of experts who are always on hand."
-    />
-  </div>
-</section>
-
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <FeatureCard
+            icon={Star}
+            title="Trusted by 1m+ students"
+            description="Every year, we help over a million students find their ideal place."
+          />
+          <FeatureCard
+            icon={Zap}
+            title="Quick & easy bookings"
+            description="Secure your room in no time with hassle-free instant booking."
+          />
+          <FeatureCard
+            icon={Building2}
+            title="The widest choice"
+            description="Browse verified, affordable student rooms close to university."
+          />
+          <FeatureCard
+            icon={MessageCircle}
+            title="We're here to help"
+            description="Reach out to our friendly team of experts who are always on hand."
+          />
+        </div>
+      </section>
 
       <PopularSearches />
 

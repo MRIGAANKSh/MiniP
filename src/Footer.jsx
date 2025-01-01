@@ -1,89 +1,118 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+// Import necessary icons from react-icons/fa
+import { FaFacebookF, FaInstagram, FaTwitter, FaArrowUp } from 'react-icons/fa';
 
 export default function Footer() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle newsletter signup
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div>
+      <div className="bg-white py-12 px-4">
+          <div className="max-w-3xl mx-auto text-center space-y-4">
+            <h2 className="text-2xl font-semibold tracking-wide">
+              JOIN OUR WITH US, BE WELL CULTURE.
+            </h2>
+            <p className="text-gray-600">
+              Stay up-to-date with our new updates, events, discounts and promotions.
+            </p>
+            <form onSubmit={handleSubmit} className="flex gap-2 max-w-xl mx-auto mt-6">
+              <input
+                type="email"
+                placeholder="Enter your email address"
+                className="flex-1 px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
+                required
+              />
+              <button 
+                type="submit" 
+                className="px-6 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition-colors"
+              >
+                SIGN UP
+              </button>
+            </form>
+          </div>
+        </div>
+
       <div className="mx-auto">
-  <img
-    src="https://www.thesac.org.uk/application/files/4014/6549/5690/housing_vector_banner.png"
-    alt=""
-    className="w-screen h-32 object-cover"
-    role="presentation"
-  />
-</div>
+        <img
+          src="https://www.thesac.org.uk/application/files/4014/6549/5690/housing_vector_banner.png"
+          alt=""
+          className="w-screen h-32 object-cover"
+          role="presentation"
+        />
+      </div>
 
-
-      <footer className="bg-gray-900 text-white py-16">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {/* Campus Crib Section */}
-            <div>
-              <h3 className="text-2xl font-bold text-blue-400 mb-4">Campus Crib</h3>
-              <p className="text-gray-400">
-                Providing comfortable and affordable student accommodations since 2024.
-              </p>
-            </div>
-
-            {/* Quick Links Section */}
-            <div>
-              <h3 className="text-2xl font-bold text-blue-400 mb-4">Quick Links</h3>
-              <ul className="space-y-3">
-                <li>
-                  <Link to="/" className="hover:text-blue-400 transition-colors duration-300">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/about" className="hover:text-blue-400 transition-colors duration-300">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/listings" className="hover:text-blue-400 transition-colors duration-300">
-                    Listings
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/contact" className="hover:text-blue-400 transition-colors duration-300">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Follow Us Section */}
-            <div>
-              <h3 className="text-2xl font-bold text-blue-400 mb-4">Follow Us</h3>
-              <div className="flex space-x-6">
+      <footer className="w-full">
+        {/* Newsletter Section */}
+        
+        {/* Navigation Section */}
+        <div className="bg-gray-900 text-white py-8 px-4 relative">
+          <div className="max-w-6xl mx-auto">
+            {/* Social Links */}
+            <div className="flex justify-center gap-4 mb-8">
+              {[{ Icon: FaFacebookF, href: '#' }, { Icon: FaInstagram, href: '#' }, { Icon: FaTwitter, href: '#' }].map(({ Icon, href }, index) => (
                 <a
+                  key={index}
+                  href={href}
+                  className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors"
+                >
+                  <Icon className="h-5 w-5" />
+                </a>
+              ))}
+            </div>
+
+            {/* Primary Navigation */}
+            <nav className="flex justify-center gap-8 mb-4 flex-wrap">
+              {['HOME', 'MENU', 'STORY', 'DETOX', 'LOCATIONS'].map((item) => (
+                <a
+                  key={item}
                   href="#"
-                  className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
+                  className="text-sm hover:text-gray-300 transition-colors"
                 >
-                  <i className="fa-brands fa-facebook text-2xl" />
+                  {item}
                 </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
-                >
-                  <i className="fa-brands fa-twitter text-2xl" />
-                </a>
-                <a
-                  href="https://www.instagram.com/theprashant1.4/profilecard/?igsh=MTl5dXNvaGU3eW04aw=="
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
-                >
-                  <i className="fa-brands fa-instagram text-2xl" />
-                </a>
-              </div>
-            </div>
-          </div>
+              ))}
+            </nav>
 
-          {/* Footer Bottom */}
-          <div className="mt-16 text-center">
-            <p className="text-gray-500">&copy; 2024 Campus Crib. All rights reserved.</p>
+            {/* Secondary Navigation */}
+            <nav className="flex justify-center gap-4 text-sm text-gray-400 mb-8 flex-wrap">
+              {['CONTACT', 'BLOG', 'CATERING', 'DELIVERY'].map((item) => (
+                <a
+                  key={item}
+                  href="#"
+                  className="hover:text-gray-300 transition-colors"
+                >
+                  {item}
+                </a>
+              ))}
+            </nav>
+
+            {/* Back to Top Button */}
+            <button
+              onClick={scrollToTop}
+              className="absolute right-8 top-8 p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors"
+              aria-label="Back to top"
+            >
+              <FaArrowUp className="h-5 w-5" />
+            </button>
           </div>
+        </div>
+
+        {/* Bottom Banner */}
+        <div className="bg-[#5B9B42] text-white py-4 px-4 text-center text-sm">
+          <p className="mb-1">
+            
+          </p>
+          <p className="text-white/80">
+            ©2025 CAMPUS CRIB | ALL RIGHTS RESERVED
+          </p>
         </div>
       </footer>
     </div>
