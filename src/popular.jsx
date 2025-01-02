@@ -23,7 +23,7 @@ const PopularSearches = () => {
     ];
   
     return (
-      <section className="bg-gray-50 py-12 px-6 sm:px-8 lg:px-16">
+      <section className="bg-gray-50 py-12 px-6 sm:px-8 lg:px-16" data-aos="fade-up">
         <div className="max-w-6xl mx-auto">
           {/* Title */}
           <h2 className="text-4xl font-extrabold text-gray-800 mb-12 text-center">

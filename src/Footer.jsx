@@ -18,7 +18,7 @@ export default function Footer() {
       <div className="bg-white py-12 px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4">
             <h2 className="text-2xl font-semibold tracking-wide">
-              JOIN OUR WITH US, BE WELL CULTURE.
+              JOIN THE CRIB, BE OUR PARTNER.
             </h2>
             <p className="text-gray-600">
               Stay up-to-date with our new updates, events, discounts and promotions.
@@ -70,7 +70,7 @@ export default function Footer() {
 
             {/* Primary Navigation */}
             <nav className="flex justify-center gap-8 mb-4 flex-wrap">
-              {['HOME', 'MENU', 'STORY', 'DETOX', 'LOCATIONS'].map((item) => (
+              {['HOME', 'MENU', 'COMMUNITY', 'EXPLORE', 'JOIN'].map((item) => (
                 <a
                   key={item}
                   href="#"
@@ -83,7 +83,7 @@ export default function Footer() {
 
             {/* Secondary Navigation */}
             <nav className="flex justify-center gap-4 text-sm text-gray-400 mb-8 flex-wrap">
-              {['CONTACT', 'BLOG', 'CATERING', 'DELIVERY'].map((item) => (
+              {['CONTACT', 'BLOG', 'SIGN-IN', 'TEAM'].map((item) => (
                 <a
                   key={item}
                   href="#"

@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Navigation() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 100); // Delay for smoother animation
+    return () => clearTimeout(timer); // Cleanup on unmount
+  }, []);
+
   return (
-    <nav className="bg-white-800 text-black-300 p-4 shadow-md">
+    <nav
+      className={`bg-white text-black p-4 shadow-md transition-transform duration-700 ${
+        isVisible ? "translate-y-0 opacity-100" : "-translate-y-20 opacity-0"
+      }`}
+    >
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo Section */}
         <Link
