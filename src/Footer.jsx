@@ -18,7 +18,7 @@ export default function Footer() {
       <div className="bg-white py-12 px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4">
             <h2 className="text-2xl font-semibold tracking-wide">
-              JOIN THE CRIB, BE OUR PARTNER.
+              LET'S BE IN TOUCH
             </h2>
             <p className="text-gray-600">
               Stay up-to-date with our new updates, events, discounts and promotions.
@@ -73,7 +73,7 @@ export default function Footer() {
               {['HOME', 'MENU', 'COMMUNITY', 'EXPLORE', 'JOIN'].map((item) => (
                 <a
                   key={item}
-                  href="#"
+                  href="/"
                   className="text-sm hover:text-gray-300 transition-colors"
                 >
                   {item}
