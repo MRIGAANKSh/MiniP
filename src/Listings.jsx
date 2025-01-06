@@ -122,7 +122,7 @@ export default function Listings() {
         {filteredListings.map((listing) => (
           <div
             key={listing.id}
-            className="bg-white rounded-lg border overflow-hidden cursor-pointer"
+            className="bg-white rounded-lg border overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
             onClick={() => handleViewDetails(listing.id)}
           >
             <div className="relative h-40">
