@@ -11,6 +11,8 @@ import Results from './result';
 import { HashLoader, ScaleLoader } from 'react-spinners';
 import Booking from './booking';
 import Cursor from './cursor'
+import Login from './Login'
+import SignUp from './SignUp'
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -47,6 +49,8 @@ export default function App() {
                 <Route path="/details/:listingId" element={<ListingDetails />} />
                 <Route path="/booking/:listingId" element={<Booking />} />
                 <Route path="/result" element={<Results />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
               </Routes>
             </main>
             <Footer />

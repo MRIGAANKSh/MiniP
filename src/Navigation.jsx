@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navigation() {
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100); // Delay for smoother animation
     return () => clearTimeout(timer); // Cleanup on unmount
   }, []);
+
+  const handleClick = () => {
+    // Navigate to login page or signup page (modify this as needed)
+    navigate("/login");  // You can replace '/login' with '/signup' or other routes
+  };
 
   return (
     <nav
@@ -63,7 +69,10 @@ export default function Navigation() {
         </ul>
 
         {/* Button */}
-        <button className="border-2 border-black text-black font-semibold py-1 px-2 rounded-3xl transition-colors duration-300 flex items-center space-x-2">
+        <button
+          onClick={handleClick} // Call the handleClick function to navigate
+          className="border-2 border-black text-black font-semibold py-1 px-2 rounded-3xl transition-colors duration-300 flex items-center space-x-2 hover:bg-gray-200"
+        >
           <i className="fa-solid fa-bars"></i>
           <i className="fa-regular fa-user"></i>
         </button>
