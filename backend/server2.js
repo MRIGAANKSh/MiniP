@@ -1,6 +1,6 @@
 import express from 'express';
-import bcrypt from 'bcrypt';
 import { Pool } from 'pg';
+import crypto from 'crypto';
 
 const app = express();
 const port = 3001;
@@ -16,6 +16,15 @@ const pool = new Pool({
 
 // Middleware to parse JSON request body
 app.use(express.json());
+
+// Utility function to hash passwords using Node.js crypto module
+const hashPassword = (password) => {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hashedPassword = crypto
+    .pbkdf2Sync(password, salt, 1000, 64, 'sha512')
+    .toString('hex');
+  return { hashedPassword, salt };
+};
 
 // Sign up route
 app.post('/api/signup', async (req, res) => {
@@ -33,13 +42,13 @@ app.post('/api/signup', async (req, res) => {
       return res.status(400).json({ message: 'Email is already registered.' });
     }
 
-    // Hash password before storing it in the database
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Hash password before storing it in the database using the crypto module
+    const { hashedPassword, salt } = hashPassword(password);
 
     // Insert user details into the 'details' table
     const insertResult = await pool.query(
-      'INSERT INTO details (username, email, password, user_type) VALUES ($1, $2, $3, $4) RETURNING id',
-      [username, email, hashedPassword, userType]
+      'INSERT INTO details (username, email, password, salt, user_type) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+      [username, email, hashedPassword, salt, userType]
     );
 
     // Respond with success
