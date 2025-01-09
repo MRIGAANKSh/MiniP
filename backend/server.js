@@ -29,8 +29,6 @@ const pool = new Pool({
 app.use(cors());
 app.use(express.json());
 
-// Existing API endpoints remain unchanged
-
 // API endpoint to fetch all listings from the database
 app.get('/api/listings', async (req, res) => {
   const searchTerm = req.query.search;
@@ -109,3 +107,12 @@ app.post('/api/bookings', async (req, res) => {
   }
 });
 
+// Default error handler for unhandled routes
+app.use((req, res) => {
+  res.status(404).json({ message: 'API endpoint not found' });
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
