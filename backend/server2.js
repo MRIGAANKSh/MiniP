@@ -1,6 +1,7 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const { Pool } = require('pg');
+import express from 'express';
+import bcrypt from 'bcrypt';
+import { Pool } from 'pg';
+
 const app = express();
 const port = 3001;
 

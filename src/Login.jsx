@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useHistory } from 'react-router-dom';  // Use useHistory for navigation
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const history = useHistory(); // To redirect after login
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const navigate = useNavigate(); // Initialize useNavigate for redirection
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     try {
-      const response = await fetch('http://localhost:3001/api/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3001/api/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
@@ -26,20 +26,20 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess('Login successful! Redirecting...');
-        console.log('User Data:', data);
+        setSuccess("Login successful! Redirecting...");
+        console.log("User Data:", data);
 
         // Assuming the server returns a token or session data
         // You can store this in localStorage/sessionStorage or use a global state
-        localStorage.setItem('authToken', data.token);  // Store token for future requests
+        localStorage.setItem("authToken", data.token); // Store token for future requests
         setTimeout(() => {
-          history.push('/dashboard');  // Redirect to dashboard or other page
+          navigate("/dashboard"); // Redirect to dashboard or other page
         }, 2000); // Delay for a smooth transition
       } else {
-        setError(data.message || 'An error occurred during login.');
+        setError(data.message || "An error occurred during login.");
       }
     } catch (err) {
-      setError('Failed to connect to the server. Please try again later.');
+      setError("Failed to connect to the server. Please try again later.");
     }
   };
 
@@ -51,12 +51,19 @@ const LoginPage = () => {
         transition={{ duration: 0.5 }}
         className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md"
       >
-        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Login</h2>
+        <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
+          Login
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
-          {success && <div className="text-green-500 text-sm mb-4">{success}</div>}
+          {success && (
+            <div className="text-green-500 text-sm mb-4">{success}</div>
+          )}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Email
             </label>
             <input
@@ -69,7 +76,10 @@ const LoginPage = () => {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Password
             </label>
             <input
@@ -92,10 +102,13 @@ const LoginPage = () => {
         </form>
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
-            <a href="/signup" className="text-blue-500 hover:underline font-medium">
+            Don't have an account?{" "}
+            <Link
+              to="/signup"
+              className="text-blue-500 hover:underline font-medium"
+            >
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </motion.div>
