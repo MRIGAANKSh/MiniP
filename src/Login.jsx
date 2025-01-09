@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useHistory } from 'react-router-dom';  // Use useHistory for navigation
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const history = useHistory(); // To redirect after login
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +28,13 @@ const LoginPage = () => {
       if (response.ok) {
         setSuccess('Login successful! Redirecting...');
         console.log('User Data:', data);
-        // Redirect or perform post-login actions here
+
+        // Assuming the server returns a token or session data
+        // You can store this in localStorage/sessionStorage or use a global state
+        localStorage.setItem('authToken', data.token);  // Store token for future requests
+        setTimeout(() => {
+          history.push('/dashboard');  // Redirect to dashboard or other page
+        }, 2000); // Delay for a smooth transition
       } else {
         setError(data.message || 'An error occurred during login.');
       }
