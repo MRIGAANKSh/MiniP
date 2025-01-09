@@ -29,6 +29,8 @@ const pool = new Pool({
 app.use(cors());
 app.use(express.json());
 
+// Existing API endpoints remain unchanged
+
 // API endpoint to fetch all listings from the database
 app.get('/api/listings', async (req, res) => {
   const searchTerm = req.query.search;
@@ -107,12 +109,77 @@ app.post('/api/bookings', async (req, res) => {
   }
 });
 
-// Default error handler for unhandled routes
-app.use((req, res) => {
-  res.status(404).json({ message: 'API endpoint not found' });
+// New Signup Endpoint
+app.post('/api/signup', async (req, res) => {
+  const { username, email, password, userType } = req.body;
+
+  // Validate required fields
+  if (!username || !email || !password || !userType) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  try {
+    // Check if email is already registered
+    const emailCheck = await pool.query('SELECT * FROM details WHERE email = $1', [email]);
+    if (emailCheck.rows.length > 0) {
+      return res.status(409).json({ message: 'Email already registered' });
+    }
+
+    // Insert user into the details table
+    const result = await pool.query(
+      `INSERT INTO details (username, email, password, user_type) 
+       VALUES ($1, $2, $3, $4) RETURNING id, username, email, user_type`,
+      [username, email, password, userType]
+    );
+
+    const newUser = result.rows[0];
+
+    res.status(201).json({
+      message: 'User registered successfully',
+      user: newUser,
+    });
+  } catch (err) {
+    console.error('Error during signup:', err.message);
+    res.status(500).json({ message: 'Error during signup', error: err.message });
+  }
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+// New Login Endpoint
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  // Validate required fields
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required' });
+  }
+
+  try {
+    // Check if user exists in the details table
+    const userResult = await pool.query('SELECT * FROM details WHERE email = $1', [email]);
+
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const user = userResult.rows[0];
+
+    // Validate password (for simplicity, plain text comparison; use hashing in production)
+    if (user.password !== password) {
+      return res.status(401).json({ message: 'Invalid password' });
+    }
+
+    // Return user details
+    res.json({
+      message: 'Login successful',
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        userType: user.user_type,
+      },
+    });
+  } catch (err) {
+    console.error('Error during login:', err.message);
+    res.status(500).json({ message: 'Error during login', error: err.message });
+  }
 });

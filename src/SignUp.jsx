@@ -6,12 +6,57 @@ const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [userType, setUserType] = useState('student');  // New state to track user type
+  const [userType, setUserType] = useState('student'); // New state to track user type
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle signup logic here
-    console.log('Signup Details:', { username, email, password, confirmPassword, userType });
+
+    // Reset error and success messages
+    setError('');
+    setSuccessMessage('');
+
+    // Validate password match
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    try {
+      // Send signup data to the server
+      const response = await fetch('http://localhost:3001/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          userType,
+        }),
+      });
+
+      // Parse server response
+      const data = await response.json();
+
+      if (response.ok) {
+        // Success: Show success message
+        setSuccessMessage('Signup successful! You can now log in.');
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setUserType('student');
+      } else {
+        // Error: Show server-provided error message
+        setError(data.message || 'Failed to sign up. Please try again.');
+      }
+    } catch (err) {
+      console.error('Error during signup:', err);
+      setError('An unexpected error occurred. Please try again later.');
+    }
   };
 
   return (
@@ -114,6 +159,12 @@ const SignupPage = () => {
               </label>
             </div>
           </div>
+
+          {/* Error Message */}
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+
+          {/* Success Message */}
+          {successMessage && <p className="text-green-500 text-sm mt-2">{successMessage}</p>}
 
           {/* Submit Button */}
           <motion.button

@@ -2,13 +2,37 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login Details:', { username, password });
+    setError('');
+    setSuccess('');
+
+    try {
+      const response = await fetch('http://localhost:3001/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSuccess('Login successful! Redirecting...');
+        console.log('User Data:', data);
+        // Redirect or perform post-login actions here
+      } else {
+        setError(data.message || 'An error occurred during login.');
+      }
+    } catch (err) {
+      setError('Failed to connect to the server. Please try again later.');
+    }
   };
 
   return (
@@ -21,16 +45,18 @@ const LoginPage = () => {
       >
         <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
+          {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
+          {success && <div className="text-green-500 text-sm mb-4">{success}</div>}
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
-              Username
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              Email
             </label>
             <input
-              id="username"
-              type="text"
+              id="email"
+              type="email"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -70,4 +96,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
