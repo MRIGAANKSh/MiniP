@@ -61,29 +61,23 @@ const BookingPage = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch('https://minip-2.onrender.com/api/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          listingId,
-          ...formData,
-        }),
-      });
 
-      if (response.ok) {
-        alert('Visit scheduled successfully!');
-        navigate('/listings');
-      } else {
-        throw new Error('Failed to schedule visit');
-      }
-    } catch (err) {
-      alert(err.message);
-    }
+    // Prepare the email body
+    const emailBody = `
+      Name: ${formData.name}
+      Phone Number: ${formData.phoneNumber}
+      Room Type: ${formData.roomType}
+      Visit Date: ${formData.visitDate}
+      Visit Time: ${formData.visitTime}
+    `;
+
+    // Create mailto link
+    const emailLink = `mailto:mrigaanksharma928@gmail.com?subject=Booking%20Request%20for%20Room%20Type%20${formData.roomType}&body=${encodeURIComponent(emailBody)}`;
+
+    // Trigger email client
+    window.location.href = emailLink;
   };
 
   if (loading) return <div className="text-center text-sm">Loading...</div>;
@@ -148,7 +142,7 @@ const BookingPage = () => {
               {[ 
                 { id: 'private', label: 'Private Room', price: '15,999' },
                 { id: 'double', label: 'Double Sharing', price: '10,999' },
-                { id: 'triple', label: 'Triple Sharing', price: listing.price ? listing.price : '9,999' }, // Using listing.price for triple sharing
+                { id: 'triple', label: 'Triple Sharing', price: listing.price ? listing.price : '9,999' },
               ].map((option) => (
                 <label
                   key={option.id}
@@ -222,7 +216,9 @@ const BookingPage = () => {
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
               </label>
             </div>
-            <p className="text-center text-sm text-gray-500">It's Free</p>
+            <p className="text-center text-sm text-gray-500">
+              By scheduling a visit, you agree to our terms and privacy policy.
+            </p>
           </form>
         </div>
       </div>

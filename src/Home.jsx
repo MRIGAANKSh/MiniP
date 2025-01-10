@@ -151,7 +151,7 @@ export default function Home() {
       {/* Why Choose Section */}
       <section className="text-center mb-16 bg-gray-50 py-12">
         <h2
-          className="text-3xl font-serif font-semibold text-gray-800 mb-6 px-6"
+          className="text-3xl font-serif  text-gray-800 mb-6 px-6"
           data-aos="fade-up"
         >
           Why Choose Campus Crib?

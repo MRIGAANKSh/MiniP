@@ -26,7 +26,7 @@ export default function FAQ() {
     <div className="container mx-auto p-6">
       <section className="text-center mb-16">
         <h2
-          className="text-4xl font-bold py-3 text-gray-800 mb-8 text-center leading-tight tracking-wide shadow-md"
+          className="text-4xl  py-3 text-gray-800 mb-8 text-center leading-tight tracking-wide shadow-md"
           data-aos="fade-up"
         >
           Frequently Asked Questions (FAQ)

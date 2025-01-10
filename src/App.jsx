@@ -13,7 +13,7 @@ import Booking from './booking';
 import Cursor from './cursor'
 import Login from './Login'
 import SignUp from './SignUp'
-
+import Portal from './portal'
 export default function App() {
   const [loading, setLoading] = useState(true);
 
@@ -51,6 +51,7 @@ export default function App() {
                 <Route path="/result" element={<Results />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
+                <Route path="/portal" element={<Portal />} />
               </Routes>
             </main>
             <Footer />

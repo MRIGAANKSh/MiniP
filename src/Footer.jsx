@@ -86,7 +86,7 @@ export default function Footer() {
               {['CONTACT', 'BLOG', 'SIGN-IN', 'TEAM'].map((item) => (
                 <a
                   key={item}
-                  href="#"
+                  href="/portal"
                   className="hover:text-gray-300 transition-colors"
                 >
                   {item}
