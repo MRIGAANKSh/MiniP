@@ -25,7 +25,7 @@ const SignupPage = () => {
 
     try {
       // Send signup data to the server
-      const response = await fetch('http://localhost:3001/api/signup', {
+      const response = await fetch('https://minip-3.onrender.com/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
