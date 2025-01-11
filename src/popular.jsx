@@ -38,7 +38,7 @@ const PopularSearches = () => {
     >
       <div className="max-w-6xl mx-auto">
         {/* Title */}
-        <h2 className="text-4xl font-extrabold text-gray-800 mb-12 text-center">
+        <h2 className="text-4xl  text-gray-800 mb-12 text-center">
           Popular Searches
         </h2>
 
