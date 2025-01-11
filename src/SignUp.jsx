@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom'; // For navigation
 
 const SignupPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [userType, setUserType] = useState('student'); // New state to track user type
+  const [userType, setUserType] = useState('student'); // Track user type
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Reset error and success messages
+    // Reset messages
     setError('');
     setSuccessMessage('');
 
@@ -24,7 +26,6 @@ const SignupPage = () => {
     }
 
     try {
-      // Send signup data to the server
       const response = await fetch('https://minip-3.onrender.com/api/signup', {
         method: 'POST',
         headers: {
@@ -38,20 +39,19 @@ const SignupPage = () => {
         }),
       });
 
-      // Parse server response
       const data = await response.json();
 
       if (response.ok) {
-        // Success: Show success message
-        setSuccessMessage('Signup successful! You can now log in.');
+        // Show success message and redirect to login
+        setSuccessMessage('Signup successful! Redirecting to login...');
         setUsername('');
         setEmail('');
         setPassword('');
         setConfirmPassword('');
         setUserType('student');
+        setTimeout(() => navigate('/login'), 2000);
       } else {
-        // Error: Show server-provided error message
-        setError(data.message || 'Failed to sign up. Please try again.');
+        setError(data.message || 'Signup failed. Please try again.');
       }
     } catch (err) {
       console.error('Error during signup:', err);
@@ -129,11 +129,9 @@ const SignupPage = () => {
             />
           </div>
 
-          {/* User Type (Student or Landlord/Accommodator) */}
+          {/* User Type Field */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Register As
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Register As</label>
             <div className="flex space-x-6">
               <label className="flex items-center space-x-2">
                 <input

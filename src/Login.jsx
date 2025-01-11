@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const navigate = useNavigate(); // Initialize useNavigate for redirection
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,16 +29,23 @@ const LoginPage = () => {
         setSuccess("Login successful! Redirecting...");
         console.log("User Data:", data);
 
-        // Assuming the server returns a token or session data
-        // You can store this in localStorage/sessionStorage or use a global state
-        localStorage.setItem("authToken", data.token); // Store token for future requests
+        // Store the received token in localStorage (if returned by the server)
+        if (data.token) {
+          localStorage.setItem("authToken", data.token);
+        } else {
+          console.warn("No token received from the server.");
+        }
+
+        // Redirect to dashboard or another page after a short delay
         setTimeout(() => {
-          navigate("/dashboard"); // Redirect to dashboard or other page
-        }, 2000); // Delay for a smooth transition
+          navigate("/dashboard");
+        }, 2000);
       } else {
+        // Display error message from the server or a default error
         setError(data.message || "An error occurred during login.");
       }
     } catch (err) {
+      console.error("Login error:", err);
       setError("Failed to connect to the server. Please try again later.");
     }
   };
