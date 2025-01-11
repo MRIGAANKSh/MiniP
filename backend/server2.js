@@ -1,17 +1,20 @@
 import express from 'express';
 import { Pool } from 'pg';
 import crypto from 'crypto';
+import dotenv from 'dotenv';
+
+dotenv.config(); // Load environment variables from a .env file
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001; // Use PORT from environment variables or default to 3001
 
 // PostgreSQL connection
 const pool = new Pool({
-  user: 'campuscrib_kw8c_user', // Replace with your database username
-  host: 'dpg-ctvr068gph6c73cf1830-a.oregon-postgres.render.com',
-  database: 'campuscrib_kw8c', // Replace with your database name
-  password: 'Mu6evkjfBL0qnO4oTkTiI7fRPv1zChnL', // Replace with your database password
-  port: 5432,
+  user: process.env.DB_USER, // Use environment variables for sensitive credentials
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT || 5432,
 });
 
 // Middleware to parse JSON request body
@@ -37,12 +40,15 @@ app.post('/api/signup', async (req, res) => {
 
   try {
     // Check if email already exists in the database
-    const emailCheckResult = await pool.query('SELECT * FROM details WHERE email = $1', [email]);
+    const emailCheckResult = await pool.query(
+      'SELECT * FROM details WHERE email = $1',
+      [email]
+    );
     if (emailCheckResult.rows.length > 0) {
       return res.status(400).json({ message: 'Email is already registered.' });
     }
 
-    // Hash password before storing it in the database using the crypto module
+    // Hash password before storing it in the database
     const { hashedPassword, salt } = hashPassword(password);
 
     // Insert user details into the 'details' table
@@ -52,10 +58,15 @@ app.post('/api/signup', async (req, res) => {
     );
 
     // Respond with success
-    res.status(201).json({ message: 'Signup successful!', userId: insertResult.rows[0].id });
+    res.status(201).json({ 
+      message: 'Signup successful!', 
+      userId: insertResult.rows[0].id 
+    });
   } catch (err) {
-    console.error('Error during signup:', err);
-    res.status(500).json({ message: 'An error occurred while signing up. Please try again.' });
+    console.error('Error during signup:', err.message);
+    res.status(500).json({ 
+      message: 'An error occurred while signing up. Please try again later.' 
+    });
   }
 });
 
