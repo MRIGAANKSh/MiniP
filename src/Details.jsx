@@ -37,7 +37,7 @@ const Details = () => {
     const fetchListingDetails = async () => {
       try {
         const response = await fetch(
-          `https://minip-2.onrender.com/api/listings/${listingId}`
+          `https://minip-5.onrender.com/api/listings/${listingId}`
         );
         if (!response.ok) {
           throw new Error('Listing not found');

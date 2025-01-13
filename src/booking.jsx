@@ -39,7 +39,7 @@ const BookingPage = () => {
   useEffect(() => {
     const fetchListingDetails = async () => {
       try {
-        const response = await fetch(`https://minip-2.onrender.com/api/listings/${listingId}`);
+        const response = await fetch(`https://minip-5.onrender.com/api/listings/${listingId}`);
         if (!response.ok) throw new Error('Listing not found');
         const data = await response.json();
         setListing(data);

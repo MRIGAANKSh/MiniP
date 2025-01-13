@@ -19,7 +19,7 @@ export default function Listings() {
     setIsLoading(true);
     setError(null);
 
-    fetch('https://minip-2.onrender.com/api/listings')
+    fetch('https://minip-5.onrender.com/api/listings')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

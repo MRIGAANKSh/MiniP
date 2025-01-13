@@ -13,7 +13,7 @@ export default function Results() {
     const fetchListings = async () => {
       try {
         const response = await fetch(
-          `https://minip-2.onrender.com/api/listings?search=${encodeURIComponent(searchTerm)}`
+          `https://minip-5.onrender.com/api/listings?search=${encodeURIComponent(searchTerm)}`
         );
         const data = await response.json();
 
