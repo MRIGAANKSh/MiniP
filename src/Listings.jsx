@@ -27,7 +27,12 @@ export default function Listings() {
         return response.json();
       })
       .then((data) => {
-        setListings(data);
+        // Add random distance between 500 meters and 1 km for each listing
+        const updatedListings = data.map((listing) => ({
+          ...listing,
+          distance: (Math.random() * (1 - 0.5) + 0.5).toFixed(2), // Random distance between 0.5 km to 1 km
+        }));
+        setListings(updatedListings);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -150,6 +155,9 @@ export default function Listings() {
               </div>
               <p className="text-xs text-gray-500 mb-2">
                 Nearby College: {listing.nearby_college}
+              </p>
+              <p className="text-xs text-gray-500 mb-2">
+                Distance from college: {listing.distance} km
               </p>
               <div className="flex items-center justify-between">
                 <div>
