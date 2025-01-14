@@ -1,52 +1,46 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+const LoginPage = ({ onLogin }) => {
+  const [email, setEmail] = useState(""); // Email input field
+  const [password, setPassword] = useState(""); // Password input field
+  const [error, setError] = useState(""); // Error message
+  const [successMessage, setSuccessMessage] = useState(""); // Success message
+  const [areButtonsEnabled, setAreButtonsEnabled] = useState(false); // State to enable/disable buttons
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  // Default credentials (for testing purposes)
+  const DEFAULT_EMAIL = "prabhat@gmail.com";
+  const DEFAULT_PASSWORD = "saviour52";
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Reset messages
     setError("");
-    setSuccess("");
+    setSuccessMessage("");
 
-    try {
-      const response = await fetch("https://minip-3.onrender.com/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+    // Check if default values are entered
+    if (email === DEFAULT_EMAIL && password === DEFAULT_PASSWORD) {
+      // Simulate a successful login for default credentials
+      setSuccessMessage("Login successful! Redirecting...");
+      setAreButtonsEnabled(true); // Enable all buttons
+      onLogin(); // Call the onLogin function passed from App.jsx
+      setTimeout(() => navigate("/home"), 2000); // Redirect to home page
+    } else {
+      // Display error message if credentials are invalid
+      setError("Invalid credentials. Please use the default values.");
+      setAreButtonsEnabled(false); // Disable all buttons
+    }
+  };
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccess("Login successful! Redirecting...");
-        console.log("User Data:", data);
-
-        // Store the received token in localStorage (if returned by the server)
-        if (data.token) {
-          localStorage.setItem("authToken", data.token);
-        } else {
-          console.warn("No token received from the server.");
-        }
-
-        // Redirect to dashboard or another page after a short delay
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 2000);
-      } else {
-        // Display error message from the server or a default error
-        setError(data.message || "An error occurred during login.");
-      }
-    } catch (err) {
-      console.error("Login error:", err);
-      setError("Failed to connect to the server. Please try again later.");
+  // Handle header button clicks
+  const handleHeaderButtonClick = (path) => {
+    if (areButtonsEnabled) {
+      navigate(path); // Only allow navigation if buttons are enabled
+    } else {
+      setError("Invalid credentials. Cannot access this page.");
     }
   };
 
@@ -58,14 +52,13 @@ const LoginPage = () => {
         transition={{ duration: 0.5 }}
         className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md"
       >
+       
+
         <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">
           Login
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
-          {success && (
-            <div className="text-green-500 text-sm mb-4">{success}</div>
-          )}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Email Field */}
           <div>
             <label
               htmlFor="email"
@@ -82,11 +75,13 @@ const LoginPage = () => {
               required
             />
           </div>
+
+          {/* Password Field */}
           <div>
             <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-700 mb-2"
-            >
+ >
               Password
             </label>
             <input
@@ -98,24 +93,39 @@ const LoginPage = () => {
               required
             />
           </div>
+
+          {/* Error Message */}
+          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+
+          {/* Success Message */}
+          {successMessage && (
+            <div className="text-green-500 text-sm mt-2">{successMessage}</div>
+          )}
+
+          {/* Submit Button */}
           <motion.button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200 ease-in-out"
+            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200 ease-in-out mt-6"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
             Login
           </motion.button>
         </form>
+
+        {/* Signup Link */}
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             Don't have an account?{" "}
-            <Link
-              to="/signup"
-              className="text-blue-500 hover:underline font-medium"
+            <button
+              onClick={() => handleHeaderButtonClick("/signup")}
+              className={`text-blue-500 hover:underline font-medium ${
+                !areButtonsEnabled ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={!areButtonsEnabled} // Disable button if credentials are incorrect
             >
               Sign up
-            </Link>
+            </button>
           </p>
         </div>
       </motion.div>

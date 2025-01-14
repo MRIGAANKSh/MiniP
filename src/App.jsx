@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navigation from './Navigation';
 import Home from './Home';
 import About from './About';
@@ -8,50 +8,139 @@ import Contact from './Contact';
 import Footer from './Footer';
 import ListingDetails from './Details';
 import Results from './result';
-import { HashLoader, ScaleLoader } from 'react-spinners';
+import { HashLoader } from 'react-spinners';
 import Booking from './booking';
-import Cursor from './cursor'
-import Login from './Login'
-import SignUp from './SignUp'
-import Portal from './portal'
+import Cursor from './cursor';
+import Login from './Login';
+import SignUp from './SignUp';
+import Portal from './portal';
+
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Track authentication state
 
   useEffect(() => {
-    // Set a timeout to turn off the loader after 2.5 seconds
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2500);
 
-    // Cleanup timer in case the component unmounts
     return () => clearTimeout(timer);
   }, []);
 
+  // Function to handle login
+  const handleLogin = () => {
+    setIsAuthenticated(true); // Set authentication to true after successful login
+  };
+
+  // Function to handle logout
+  const handleLogout = () => {
+    setIsAuthenticated(false); // Set authentication to false on logout
+  };
+
   return (
     <div>
-      <Cursor/>
+      <Cursor />
       {loading ? (
-        // Show loader while loading is true
         <div className="flex items-center justify-center min-h-screen">
           <HashLoader loading={true} />
         </div>
       ) : (
-        // Show the main app once loading is false
         <Router>
           <div className="flex flex-col min-h-screen">
-            <Navigation />
+            <Navigation isAuthenticated={isAuthenticated} onLogout={handleLogout} />
             <main className="flex-grow">
               <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/listings" element={<Listings />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/details/:listingId" element={<ListingDetails />} />
-                <Route path="/booking/:listingId" element={<Booking />} />
-                <Route path="/result" element={<Results />} />
-                <Route path="/login" element={<Login />} />
+                <Route
+                  path="/"
+                  element={
+                    isAuthenticated ? (
+                      <Navigate to="/home" /> // Redirect to home if authenticated
+                    ) : (
+                      <Login onLogin={handleLogin} /> // Show login page if not authenticated
+                    )
+                  }
+                />
+                <Route
+                  path="/home"
+                  element={
+                    isAuthenticated ? (
+                      <Home />
+                    ) : (
+                      <Navigate to="/" /> // Redirect to login if not authenticated
+                    )
+                  }
+                />
+                <Route
+                  path="/about"
+                  element={
+                    isAuthenticated ? (
+                      <About />
+                    ) : (
+                      <Navigate to="/" /> // Redirect to login if not authenticated
+                    )
+                  }
+                />
+                <Route
+                  path="/listings"
+                  element={
+                    isAuthenticated ? (
+                      <Listings />
+                    ) : (
+                      <Navigate to="/" /> // Redirect to login if not authenticated
+                    )
+                  }
+                />
+                <Route
+                  path="/contact"
+                  element={
+                    isAuthenticated ? (
+                      <Contact />
+                    ) : (
+                      <Navigate to="/" /> // Redirect to login if not authenticated
+                    )
+                  }
+                />
+                <Route
+                  path="/details/:listingId"
+                  element={
+                    isAuthenticated ? (
+                      <ListingDetails />
+                    ) : (
+                      <Navigate to="/" /> // Redirect to login if not authenticated
+                    )
+                  }
+                />
+                <Route
+                  path="/booking/:listingId"
+                  element={
+                    isAuthenticated ? (
+                      <Booking />
+                    ) : (
+                      <Navigate to="/" /> // Redirect to login if not authenticated
+                    )
+                  }
+                />
+                <Route
+                  path="/result"
+                  element={
+                    isAuthenticated ? (
+                      <Results />
+                    ) : (
+                      <Navigate to="/" /> // Redirect to login if not authenticated
+                    )
+                  }
+                />
                 <Route path="/signup" element={<SignUp />} />
-                <Route path="/portal" element={<Portal />} />
+                <Route
+                  path="/portal"
+                  element={
+                    isAuthenticated ? (
+                      <Portal />
+                    ) : (
+                      <Navigate to="/" /> // Redirect to login if not authenticated
+                    )
+                  }
+                />
               </Routes>
             </main>
             <Footer />

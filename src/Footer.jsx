@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// Import necessary icons from react-icons/fa
 import { FaFacebookF, FaInstagram, FaTwitter, FaArrowUp } from "react-icons/fa";
 
 export default function Footer() {
@@ -21,7 +20,7 @@ export default function Footer() {
             LET'S BE IN TOUCH
           </h2>
           <p className="text-gray-600">
-            Stay up-to-date with our new updates, events, discounts and
+            Stay up-to-date with our new updates, events, discounts, and
             promotions.
           </p>
           <form
@@ -62,9 +61,9 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex justify-center gap-4 mb-8">
               {[
-                { Icon: FaFacebookF, href: "#" },
-                { Icon: FaInstagram, href: "#" },
-                { Icon: FaTwitter, href: "#" },
+                { Icon: FaFacebookF, href: "https://www.facebook.com/prabhat9949" },
+                { Icon: FaInstagram, href: "https://www.instagram.com/_prabhat9949_/" },
+                { Icon: FaTwitter, href: "https://x.com/_prabhatsingh__" },
               ].map(({ Icon, href }, index) => (
                 <a
                   key={index}
@@ -78,27 +77,20 @@ export default function Footer() {
 
             {/* Primary Navigation */}
             <nav className="flex justify-center gap-8 mb-4 flex-wrap">
-              {["HOME", "MENU", "COMMUNITY", "EXPLORE", "JOIN"].map((item) => (
-                <a
-                  key={item}
-                  href="/"
+              {[
+                { name: "HOME", path: "/" },
+                { name: "MENU", path: "/listings" },
+                { name: "COMMUNITY", path: "/community" },
+                { name: "EXPLORE", path: "/about" },
+                { name: "JOIN", path: "/contact" },
+              ].map(({ name, path }) => (
+                <Link
+                  key={name}
+                  to={path}
                   className="text-sm hover:text-gray-300 transition-colors"
                 >
-                  {item}
-                </a>
-              ))}
-            </nav>
-
-            {/* Secondary Navigation */}
-            <nav className="flex justify-center gap-4 text-sm text-gray-400 mb-8 flex-wrap">
-              {["CONTACT", "BLOG", "SIGN-IN", "TEAM"].map((item) => (
-                <a
-                  key={item}
-                  href="/portal"
-                  className="hover:text-gray-300 transition-colors"
-                >
-                  {item}
-                </a>
+                  {name}
+                </Link>
               ))}
             </nav>
 
@@ -115,7 +107,7 @@ export default function Footer() {
 
         {/* Bottom Banner */}
         <div className="bg-[#5B9B42] text-white py-4 px-4 text-center text-sm">
-          <p className="mb-1"></p>
+          <p className="mb-1"></ p>
 
           <p className="text-white/80">
             ©2025 CAMPUS CRIB | ALL RIGHTS RESERVED{" "}
